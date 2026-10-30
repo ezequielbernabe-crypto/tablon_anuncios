@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Lista de categorías</h2>
+
+<a href="{{ url_for('categorias.crear_categoria') }}">Registrar nueva categoría</a>
+
+<br><br>
+
+{% with mensajes = get_flashed_messages() %}
+    {% for mensaje in mensajes %}
+        <p>{{ mensaje }}</p>
+    {% endfor %}
+{% endwith %}
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for categoria in categorias %}
+    <tr>
+        <td>{{ categoria.id }}</td>
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.descripcion }}</td>
+
+        <td>
+            <a href="{{ url_for('categorias.editar_categoria', id=categoria.id) }}">Editar</a>
+
+            <form method="POST" action="{{ url_for('categorias.eliminar_categoria', id=categoria.id) }}" style="display:inline;">
+                <button type="submit" onclick="return confirm('¿Eliminar esta categoría?')">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

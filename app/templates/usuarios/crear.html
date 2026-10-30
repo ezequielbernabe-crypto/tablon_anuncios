@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block title %}Registrar usuario{% endblock %}
+
+{% block content %}
+
+<h2>Registrar usuario</h2>
+
+<form method="POST">
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
+
+    <br><br>
+
+    <label>Correo electrónico:</label>
+    <input type="email" name="correo" required>
+
+    <br><br>
+
+    <label>Contraseña:</label>
+    <input type="password" name="password" required>
+
+    <br><br>
+
+    <button type="submit">Registrar usuario</button>
+
+</form>
+
+{% with mensajes = get_flashed_messages() %}
+    {% for mensaje in mensajes %}
+        <p>{{ mensaje }}</p>
+    {% endfor %}
+{% endwith %}
+
+{% endblock %}

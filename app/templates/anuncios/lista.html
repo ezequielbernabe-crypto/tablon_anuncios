@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Anuncios{% endblock %}
+
+{% block content %}
+
+<h2>Lista de anuncios</h2>
+
+<a href="{{ url_for('anuncios.crear_anuncio') }}">Publicar nuevo anuncio</a>
+
+<br><br>
+
+{% with mensajes = get_flashed_messages() %}
+    {% for mensaje in mensajes %}
+        <p>{{ mensaje }}</p>
+    {% endfor %}
+{% endwith %}
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+        <th>Publicado por</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for anuncio in anuncios %}
+    <tr>
+        <td>{{ anuncio.id }}</td>
+        <td>{{ anuncio.titulo }}</td>
+        <td>{{ anuncio.descripcion }}</td>
+        <td>{{ anuncio.categoria.nombre }}</td>
+        <td>{{ anuncio.usuario.nombre }}</td>
+        <td>{{ anuncio.fecha_creacion.strftime('%d/%m/%Y %H:%M') if anuncio.fecha_creacion else '' }}</td>
+
+        <td>
+            <a href="{{ url_for('anuncios.editar_anuncio', id=anuncio.id) }}">Editar</a>
+
+            <form method="POST" action="{{ url_for('anuncios.eliminar_anuncio', id=anuncio.id) }}" style="display:inline;">
+                <button type="submit" onclick="return confirm('¿Eliminar este anuncio?')">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

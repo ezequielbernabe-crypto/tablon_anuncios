@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+
+<h2>Lista de usuarios</h2>
+
+<a href="{{ url_for('usuarios.crear_usuario') }}">Registrar nuevo usuario</a>
+
+<br><br>
+
+{% with mensajes = get_flashed_messages() %}
+    {% for mensaje in mensajes %}
+        <p>{{ mensaje }}</p>
+    {% endfor %}
+{% endwith %}
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{{ usuario.rol }}</td>
+        <td>
+            <a href="{{ url_for('usuarios.editar_usuario', id=usuario.id) }}">Editar</a>
+
+            <form method="POST" action="{{ url_for('usuarios.eliminar_usuario', id=usuario.id) }}" style="display:inline;">
+                <button type="submit" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

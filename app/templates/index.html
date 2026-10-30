@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+
+{% block title %}Inicio - Tablón de Anuncios{% endblock %}
+
+{% block content %}
+
+<h2>Bienvenido</h2>
+
+{% if session.get("usuario_id") %}
+    <p>Bienvenido, {{ session.get("usuario_nombre") }}.</p>
+    <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+{% else %}
+    <p>Bienvenido al sistema de gestión de anuncios.</p>
+    <p>Inicia sesión para administrar el sistema.</p>
+{% endif %}
+
+{% endblock %}

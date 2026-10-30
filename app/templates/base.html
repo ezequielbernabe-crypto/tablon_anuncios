@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tablón de Anuncios{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Tablón de Anuncios</h1>
+        <p>Sistema de gestión de anuncios</p>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('main.inicio') }}">Inicio</a>
+        <a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+        <a href="{{ url_for('usuarios.lista_usuarios') }}">Usuarios</a>
+        <a href="{{ url_for('categorias.lista_categorias') }}">Categorías</a>
+        <a href="{{ url_for('anuncios.lista_anuncios') }}">Anuncios</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 - Sistema Tablón de Anuncios</p>
+    </footer>
+
+</body>
+</html>
